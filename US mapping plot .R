@@ -34,7 +34,18 @@ library(leaflet)
 library(ggplot2)
 library(widgetframe)
 
+
+
 leaflet(data = US_Referral_data_for_Heart_failure) %>%
+  addTiles() %>%
+  addMarkers(lng =~ hcp_longitude, lat =~ hcp_latitude, clusterOptions = markerClusterOptions()) %>%
+  frameWidget()
+
+
+## filtered for physician groups 
+doctor_group <- filter(US_Referral_data_for_Heart_failure, referring_primary_affiliation_label == "Physician Group")
+
+leaflet(data = doctor_group) %>%
   addTiles() %>%
   addMarkers(lng =~ hcp_longitude, lat =~ hcp_latitude, clusterOptions = markerClusterOptions()) %>%
   frameWidget()
